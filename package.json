@@ -1,0 +1,23 @@
+{
+  "name": "db_monitor",
+  "version": "1.0.0",
+  "description": "Monitor de banco de dados",
+  "main": "main.js",
+  "scripts": {
+    "test": "mocha"
+  },
+  "repository": "https://github.com/adrwtr/db_monitor",
+  "keywords": [
+    "node",
+    "mysql"
+  ],
+  "author": "Adriano Waltrick",
+  "license": "CC0-1.0",
+  "devDependencies": {
+    "chai": "^4.1.1",
+    "diskdb": "^0.1.17",
+    "mocha": "^3.2.0",
+    "mysql": "^2.13.0"
+  },
+  "dependencies": {}
+}
