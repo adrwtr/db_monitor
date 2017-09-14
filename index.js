@@ -3,6 +3,7 @@ var npm_mysql = require('mysql');
 
 // app
 const objMysql = require('./services/mysql.js');
+const objDatabaseController = require('./controller/database_controller.js');
 
 npm_commander
   .version('1.0.0')
@@ -17,9 +18,8 @@ if (npm_commander.database) {
         database : "adriano"
     });
 
-    var a = objMysql.getDatabasesSchema(objConnectionBaseA);
-
-    a.then(function(valor) {
-        console.log(valor);
-    });
+    objDatabaseController.LerDatabases(
+        objMysql,
+        objConnectionBaseA
+    );
 }
