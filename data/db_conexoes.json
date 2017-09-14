@@ -1,0 +1,10 @@
+[
+    {
+        "id" : 1,
+        "ds_nome" : "Localhost - Adriano",
+        "ds_host" : "localhost",
+        "ds_port" : "3306",
+        "ds_login" : "backup",
+        "ds_senha" : "UniSeguro"
+    }
+]

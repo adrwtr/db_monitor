@@ -4,13 +4,13 @@ function getDbConexoes(npm_diskdb)
 {
     var db = npm_diskdb.connect(
         './data/',
-        ['conexoes']
+        ['db_conexoes']
     );
 
-    return db.conexoes;
+    return db.db_conexoes;
 }
 
 
 module.exports = {
-    getDbConexoesApp: getDbConexoes
+    getDbConexoes: getDbConexoes
 };
