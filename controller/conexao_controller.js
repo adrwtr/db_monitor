@@ -1,4 +1,5 @@
 // const objDiskDb = require('../services/diskdb.js');
+const ds_dados_programa = "dados_programa";
 
 // conlist
 function conList(
@@ -6,13 +7,25 @@ function conList(
     objDiskDb
 ) {
     var objConexoes = objDiskDb.getDbConexoes(npm_diskdb);
+    var objConexaoPrograma = objDiskDb.getDbPrograma(npm_diskdb);
+    var arrDadosPrograma = objConexaoPrograma.find(
+        {
+            _id : ds_dados_programa
+        }
+    );
 
     if (objConexoes != undefined) {
         var arrConexoes = objConexoes.find();
 
         arrConexoes.forEach(
             function(arrConexao) {
-                console.log(arrConexao.ds_nome);
+                var ds_nome_conexao = arrConexao.ds_nome;
+
+                if (arrDadosPrograma[0].nr_conexao_id == arrConexao.id) {
+                    ds_nome_conexao = '> ' + ds_nome_conexao;
+                }
+
+                console.log(ds_nome_conexao);
             }
         );
 
@@ -40,7 +53,7 @@ function conSet(
                     // seta conexão atual
                     var objConexaoPrograma = objDiskDb.getDbPrograma(npm_diskdb);
                     var arrDadosPrograma = objConexaoPrograma.find(
-                        {_id : "87700c88bd9d4498aaba034e463cf5e5"}
+                        {_id : ds_dados_programa}
                     );
 
                     if (arrDadosPrograma.length == 0) {
@@ -53,7 +66,7 @@ function conSet(
 
                     objConexaoPrograma.update(
                         {
-                            _id : "87700c88bd9d4498aaba034e463cf5e5"
+                            _id : ds_dados_programa
                         },
                         arrDadosPrograma[0],
                         {
@@ -68,6 +81,7 @@ function conSet(
 }
 
 module.exports = {
+    ds_dados_programa: ds_dados_programa,
     conList: conList,
     conSet: conSet
 };
