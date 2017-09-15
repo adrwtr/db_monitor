@@ -1,6 +1,17 @@
-var objRegistro = {
-    _id : '0ce47983623f4fb096ab3303d7bb6de7',
-    nome : 'Adriano Waltrick'
+var bottlejs = require('bottlejs');
+
+function MinhaClasse() {
+    return 1;
 };
 
-console.log(objRegistro._id);
+var bottle = new bottlejs();
+bottle.service('teste', function() {
+    return { teste : 1 } ;
+});
+
+var a = bottle.container.teste;
+console.log(bottle.container.teste);
+console.log(a.teste);
+console.log(typeof(a));
+console.log(a.MinhaClasse);
+
