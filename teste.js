@@ -1,19 +1,6 @@
-var assert = require('assert');
-var npm_mysql = require('mysql');
+var objRegistro = {
+    _id : '0ce47983623f4fb096ab3303d7bb6de7',
+    nome : 'Adriano Waltrick'
+};
 
-// app
-const objMysql = require('./services/mysql.js');
-
-
-const objConnectionBaseA = npm_mysql.createConnection({
-    host     : "localhost",
-    user     : "backup",
-    password : "UniSeguro",
-    database : "adriano"
-});
-
-var a = objMysql.getDatabasesSchema(objConnectionBaseA);
-
-a.then(function(valor) {
-    console.log(valor);
-});
+console.log(objRegistro._id);

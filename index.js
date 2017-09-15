@@ -14,6 +14,7 @@ npm_commander
   .version('1.0.0')
   .option('-d, --database', 'Lista os bancos de dados')
   .option('-c, --conlist', 'Lista de conexões')
+  .option('-1, --conset <n>', 'Lista de conexões', parseInt)
   .parse(process.argv);
 
 if (npm_commander.database) {
@@ -31,8 +32,16 @@ if (npm_commander.database) {
 }
 
 if (npm_commander.conlist) {
-    var retorno = objConexaoController.ConList(
+    var retorno = objConexaoController.conList(
         npm_diskdb,
         objDiskdbService
+    );
+}
+
+if (npm_commander.conset) {
+    objConexaoController.conSet(
+        npm_diskdb,
+        objDiskdbService,
+        npm_commander.conset
     );
 }
