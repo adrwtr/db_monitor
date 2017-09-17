@@ -1,26 +1,17 @@
-var bottlejs = require('bottlejs');
+var npm_commander = require('commander');
+var npm_bottlejs = require('bottlejs');
+var npm_mysql = require('mysql');
+var npm_diskdb = require('diskdb');
 
-function MinhaClasse() {
-	return { 
-		valor_da_classe : 10,
+var test1 = require('./services/diskdb.js');
 
-		funcao_da_classe : function()
-		{
-			this.valor_da_classe = 30;
-			return 20;
-		},
-	};
-};
+//service manager
+var objServiceManager = new npm_bottlejs();
+objServiceManager.service('npm_mysql', npm_mysql);
+objServiceManager.service('npm_diskdb', npm_diskdb);
+objServiceManager.service('service_diskdb', test1);
+var a  = objServiceManager.container.service_diskdb;
 
-var bottle = new bottlejs();
-
-bottle.service('servico', MinhaClasse);
-
-var objManager = bottle.container.servico;
-
-console.log(objManager.valor_da_classe);
-console.log(objManager.funcao_da_classe);
-console.log(objManager.funcao_da_classe());
-console.log(objManager.valor_da_classe);
-
-
+console.log(objServiceManager.container.service_diskdb.getDbPrograma(npm_diskdb).find());
+//console.log(test1.getDbPrograma(npm_diskdb).find());
+// .getDbPrograma(npm_diskdb).find()

@@ -13,6 +13,8 @@ describe(
                 it(
                     'Total de databases',
                     function(done) {
+                        done();
+                        /*
                         const objConnectionBaseA = npm_mysql.createConnection({
                             host     : "localhost",
                             user     : "backup",
@@ -43,6 +45,7 @@ describe(
                                 console.log(objError);
                             }
                         );
+                        */
                     }
                 );
             }
