@@ -1,17 +1,26 @@
 var bottlejs = require('bottlejs');
 
 function MinhaClasse() {
-    return 1;
+	return { 
+		valor_da_classe : 10,
+
+		funcao_da_classe : function()
+		{
+			this.valor_da_classe = 30;
+			return 20;
+		},
+	};
 };
 
 var bottle = new bottlejs();
-bottle.service('teste', function() {
-    return { teste : 1 } ;
-});
 
-var a = bottle.container.teste;
-console.log(bottle.container.teste);
-console.log(a.teste);
-console.log(typeof(a));
-console.log(a.MinhaClasse);
+bottle.service('servico', MinhaClasse);
+
+var objManager = bottle.container.servico;
+
+console.log(objManager.valor_da_classe);
+console.log(objManager.funcao_da_classe);
+console.log(objManager.funcao_da_classe());
+console.log(objManager.valor_da_classe);
+
 
