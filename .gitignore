@@ -3,6 +3,8 @@ bin/
 bin-debug/
 bin-release/
 node_modules/
+data/collection_test.json
+
 [Oo]bj/ # FlashDevelop obj
 [Bb]in/ # FlashDevelop bin
 
