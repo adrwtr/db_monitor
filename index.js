@@ -1,25 +1,11 @@
 var npm_commander = require('commander');
-var npm_bottlejs = require('bottlejs');
-var npm_mysql = require('mysql');
-var npm_diskdb = require('diskdb');
 
 // app
-var service_diskdb = require('./services/diskdb.js');
+var service_di = require('./services/di.js');
+
 
 //service manager
-var objServiceManager = new npm_bottlejs();
-objServiceManager.service('npm_mysql', npm_mysql);
-objServiceManager.service('npm_diskdb', function () { return npm_diskdb; });
-
-objServiceManager.factory(
-    'service_diskdb', 
-    function(container) {        
-        var objDiskdbService = new service_diskdb();
-        objDiskdbService.__construct(objServiceManager);
-        return objDiskdbService;
-    }
-);
-var teste = objServiceManager.container.service_diskdb;
+var teste = service_di.container.service_diskdb;
 console.log(teste.getDbConexoes().find());
 //.getDbConexoes().find()
 /*
