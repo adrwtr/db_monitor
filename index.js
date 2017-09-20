@@ -4,10 +4,6 @@ var npm_commander = require('commander');
 var service_di = require('./services/di.js');
 
 
-//service manager
-var teste = service_di.container.service_diskdb;
-console.log(teste.getDbConexoes().find());
-//.getDbConexoes().find()
 /*
 objServiceManager.service('services_mysql', require('./services/mysql.js'));
 

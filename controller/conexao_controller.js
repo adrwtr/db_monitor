@@ -1,87 +1,96 @@
-// const objDiskDb = require('../services/diskdb.js');
-const ds_dados_programa = "dados_programa";
+// var npm_diskdb = require('diskdb');
+function ConexaoController() {
+    return {
+        objServiceManager : null,
+        ds_dados_programa : "dados_programa",
 
-// conlist
-function conList(
-    npm_diskdb,
-    objDiskDb
-) {
-    var objConexoes = objDiskDb.getDbConexoes(npm_diskdb);
-    var objConexaoPrograma = objDiskDb.getDbPrograma(npm_diskdb);
-    var arrDadosPrograma = objConexaoPrograma.find(
-        {
-            _id : ds_dados_programa
-        }
-    );
+        __construct : function(objServiceManager) {
+            this.setServiceManager(objServiceManager);
+        },
 
-    if (objConexoes != undefined) {
-        var arrConexoes = objConexoes.find();
+        setServiceManager : function(objServiceManager) {
+            this.objServiceManager = objServiceManager;
+        },
 
-        arrConexoes.forEach(
-            function(arrConexao) {
-                var ds_nome_conexao = arrConexao.ds_nome;
+        getServiceManager : function() {
+            return this.objServiceManager;
+        },
 
-                if (arrDadosPrograma[0].nr_conexao_id == arrConexao.id) {
-                    ds_nome_conexao = '> ' + ds_nome_conexao;
+        getServiceDiskdb : function() {
+            return this.getServiceManager().container.service_diskdb;
+        },
+
+
+        conList : function() {
+            var objConexoes = this.getServiceDiskdb().getDbConexoes();
+            var objConexaoPrograma = this.getServiceDiskdb().getDbPrograma();
+            var arrDadosPrograma = objConexaoPrograma.find(
+                {
+                    _id : ds_dados_programa
                 }
+            );
 
-                console.log(ds_nome_conexao);
-            }
-        );
+            if (objConexoes != undefined) {
+                var arrConexoes = objConexoes.find();
 
-        return 1;
-    }
+                arrConexoes.forEach(
+                    function(arrConexao) {
+                        var ds_nome_conexao = arrConexao.ds_nome;
 
-    console.info('Sem conexoes definidas');
-    return 1;
-}
+                        ds_nome_conexao = (arrDadosPrograma[0].nr_conexao_id == arrConexao.id)
+                            ? '> ' + ds_nome_conexao
+                            : ' ' + ds_nome_conexao;
 
-// conset
-function conSet(
-    npm_diskdb,
-    objDiskDb,
-    nr_id
-) {
-    var objConexoes = objDiskDb.getDbConexoes(npm_diskdb);
-
-    if (objConexoes != undefined) {
-        var arrConexoes = objConexoes.find();
-
-        arrConexoes.forEach(
-            function(arrConexao) {
-                if (arrConexao.id == nr_id) {
-                    // seta conexão atual
-                    var objConexaoPrograma = objDiskDb.getDbPrograma(npm_diskdb);
-                    var arrDadosPrograma = objConexaoPrograma.find(
-                        {_id : ds_dados_programa}
-                    );
-
-                    if (arrDadosPrograma.length == 0) {
-                        arrDadosPrograma = {
-                            'nr_conexao_id' : 0
-                        };
+                        console.log(ds_nome_conexao);
                     }
+                );
 
-                    arrDadosPrograma[0].nr_conexao_id = arrConexao.id;
-
-                    objConexaoPrograma.update(
-                        {
-                            _id : ds_dados_programa
-                        },
-                        arrDadosPrograma[0],
-                        {
-                            multi: false,
-                            upsert: false
-                        }
-                    );
-                }
+                return 1;
             }
-        );
-    }
+
+            console.info('Sem conexoes definidas');
+            return 1;
+        }
+
+        conSet : function(nr_id) {
+            var objConexoes = this.getServiceDiskdb().getDbConexoes();
+
+            if (objConexoes != undefined) {
+                var arrConexoes = objConexoes.find();
+
+                arrConexoes.forEach(
+                    function(arrConexao) {
+                        if (arrConexao.id == nr_id) {
+                            // seta conexão atual
+                            var objConexaoPrograma = this.getServiceDiskdb().getDbPrograma();
+                            var arrDadosPrograma = objConexaoPrograma.find(
+                                {_id : ds_dados_programa}
+                            );
+
+                            if (arrDadosPrograma.length == 0) {
+                                arrDadosPrograma = {
+                                    'nr_conexao_id' : 0
+                                };
+                            }
+
+                            arrDadosPrograma[0].nr_conexao_id = arrConexao.id;
+
+                            objConexaoPrograma.update(
+                                {
+                                    _id : ds_dados_programa
+                                },
+                                arrDadosPrograma[0],
+                                {
+                                    multi: false,
+                                    upsert: false
+                                }
+                            );
+                        }
+                    }
+                );
+            }
+        }
+    };
 }
 
-module.exports = {
-    ds_dados_programa: ds_dados_programa,
-    conList: conList,
-    conSet: conSet
-};
+module.exports = ConexaoController;
