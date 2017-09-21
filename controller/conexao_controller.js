@@ -26,7 +26,7 @@ function ConexaoController() {
             var objConexaoPrograma = this.getServiceDiskdb().getDbPrograma();
             var arrDadosPrograma = objConexaoPrograma.find(
                 {
-                    _id : ds_dados_programa
+                    _id : this.ds_dados_programa
                 }
             );
 
@@ -50,19 +50,20 @@ function ConexaoController() {
 
             console.info('Sem conexoes definidas');
             return 1;
-        }
+        },
 
         conSet : function(nr_id) {
             var objConexoes = this.getServiceDiskdb().getDbConexoes();
 
             if (objConexoes != undefined) {
                 var arrConexoes = objConexoes.find();
-
+                var objServiceDiskdb = this.getServiceDiskdb();
+                var ds_dados_programa = this.ds_dados_programa;
                 arrConexoes.forEach(
                     function(arrConexao) {
                         if (arrConexao.id == nr_id) {
                             // seta conexão atual
-                            var objConexaoPrograma = this.getServiceDiskdb().getDbPrograma();
+                            var objConexaoPrograma = objServiceDiskdb.getDbPrograma();
                             var arrDadosPrograma = objConexaoPrograma.find(
                                 {_id : ds_dados_programa}
                             );

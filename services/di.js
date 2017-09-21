@@ -6,6 +6,8 @@ var npm_bottlejs = require('bottlejs');
 // app
 var service_diskdb = require('../services/diskdb.js');
 
+// controllers
+var classConexaoController = require('../controller/conexao_controller.js');
 
 //service manager
 var objServiceManager = new npm_bottlejs();
@@ -19,6 +21,16 @@ objServiceManager.factory(
         objDiskdbService.__construct(objServiceManager);
 
         return objDiskdbService;
+    }
+);
+
+objServiceManager.factory(
+    'objConexaoController',
+    function(container) {
+        var objConexaoController = new classConexaoController();
+        objConexaoController.__construct(objServiceManager);
+
+        return objConexaoController;
     }
 );
 

@@ -4,13 +4,6 @@ var npm_commander = require('commander');
 var service_di = require('./services/di.js');
 
 
-/*
-objServiceManager.service('services_mysql', require('./services/mysql.js'));
-
-// controllers
-const objDatabaseController = require('./controller/database_controller.js');
-const objConexaoController = require('./controller/conexao_controller.js');
-
 npm_commander
   .version('1.0.0')
   .option('-d, --database', 'Lista os bancos de dados')
@@ -33,16 +26,13 @@ if (npm_commander.database) {
 }
 
 if (npm_commander.conlist) {
-    var retorno = objConexaoController.conList(
-        npm_diskdb,
-        objDiskdbService
-    );
+    var retorno = service_di.container.objConexaoController.conList();
 }
 
 if (npm_commander.conset) {
-    objConexaoController.conSet(
-        npm_diskdb,
-        objDiskdbService,
-        npm_commander.conset
+    var nr_id = npm_commander.conset;
+
+    service_di.container.objConexaoController.conSet(
+        nr_id
     );
-}*/
+}
